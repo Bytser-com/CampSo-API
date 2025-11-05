@@ -3,6 +3,10 @@
 
 # Maven files
 HELP.md
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
