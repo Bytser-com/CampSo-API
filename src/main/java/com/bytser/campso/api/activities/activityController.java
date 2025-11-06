@@ -1,5 +1,5 @@
 package com.bytser.campso.api.activities;
 
-public class activityController {
+public class ActivityController {
 
 }

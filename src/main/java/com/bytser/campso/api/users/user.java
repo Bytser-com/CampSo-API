@@ -1,5 +1,5 @@
 package com.bytser.campso.api.users;
 
-public class user {
+public class User {
 
 }

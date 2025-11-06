@@ -1,5 +1,5 @@
 package com.bytser.campso.api.places;
 
-public class placeController {
+public class PlaceController {
 
 }

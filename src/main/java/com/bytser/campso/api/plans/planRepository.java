@@ -1,5 +1,5 @@
 package com.bytser.campso.api.plans;
 
-public class planRepository {
+public class PlanRepository {
 
 }
