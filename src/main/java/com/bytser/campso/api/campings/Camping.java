@@ -2,22 +2,27 @@ package com.bytser.campso.api.campings;
 
 import jakarta.persistence.*;
 import org.locationtech.jts.geom.Point;
+
+import com.bytser.campso.api.facilities.Facility;
+import com.bytser.campso.api.plans.Plan;
+
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "campings")
 public class Camping {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(nullable = false, updatable = false, unique = true)
+    private final String id = UUID.randomUUID().toString();
 
     @JdbcTypeCode(SqlTypes.GEOMETRY)
     @Column(columnDefinition = "geometry(Point,4326)", nullable = false, unique=true, updatable = false)
-    private Point loc;
+    private Point location;
 
     @Column(nullable = false, unique=false, updatable = true)
     private String name;
@@ -34,9 +39,9 @@ public class Camping {
     private TargetAudience targetAudience;
 
     @ElementCollection
-    @CollectionTable(name = "campingPlans", joinColumns = @JoinColumn(name = "camping_id"))
-    @Column(name = "campingPlans", nullable = false, unique=false, updatable = true)
-    private List<String> campingPlans;      // List<CampingPlan>
+    @CollectionTable(name = "camping_plans", joinColumns = @JoinColumn(name = "camping_id"))
+    @Column(name = "plans", nullable = false, unique=false, updatable = true)
+    private List<Plan> campingPlans;
 
     @Column(nullable = false, unique=false, updatable = true)
     private int totalSpaces;
@@ -44,26 +49,26 @@ public class Camping {
     @ElementCollection
     @CollectionTable(name = "camping_facilities", joinColumns = @JoinColumn(name = "camping_id"))
     @Column(name = "facility", nullable = true, unique=false, updatable = true)
-    private List<String> facilities;        // List<Facility>
+    private List<Facility> facilities;
 
     @Column(columnDefinition = "TEXT", nullable = true, unique=false, updatable = true)
     private String info;
 
     // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public UUID getUUID() {
+        return UUID.fromString(id);
     }
 
-    public Point getLoc() {
-        return loc;
+    public Point getLocation() {
+        return location;
     }
 
-    public void setLoc(Point loc) {
-        this.loc = loc;
+    public void setLocation(Point location) {
+        this.location = location;
     }
 
     public String getName() {
@@ -98,11 +103,11 @@ public class Camping {
         this.targetAudience = targetAudience;
     }
 
-    public List<String> getPlans() {
+    public List<Plan> getPlans() {
         return campingPlans;
     }
 
-    public void setPlans(List<String> campingPlans) {
+    public void setPlans(List<Plan> campingPlans) {
         this.campingPlans = campingPlans;
     }
 
@@ -114,11 +119,11 @@ public class Camping {
         this.totalSpaces = totalSpaces;
     }
 
-    public List<String> getFacilities() {
+    public List<Facility> getFacilities() {
         return facilities;
     }
 
-    public void setFacilities(List<String> facilities) {
+    public void setFacilities(List<Facility> facilities) {
         this.facilities = facilities;
     }
 

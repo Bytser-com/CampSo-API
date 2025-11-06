@@ -1,4 +1,4 @@
-package com.bytser.campso.api.campso_api;
+package com.bytser.campso.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
