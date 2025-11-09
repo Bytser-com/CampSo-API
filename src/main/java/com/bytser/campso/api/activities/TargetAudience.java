@@ -1,4 +1,4 @@
-package com.bytser.campso.api.campings;
+package com.bytser.campso.api.activities;
 
 public enum TargetAudience {
     FAMILIES("Families"),

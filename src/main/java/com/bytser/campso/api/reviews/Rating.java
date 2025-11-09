@@ -1,4 +1,4 @@
-package com.bytser.campso.api.campings;
+package com.bytser.campso.api.reviews;
 
 public enum Rating {
     HALF_STAR(0.5),
