@@ -16,7 +16,7 @@ class ReviewTest {
     @BeforeEach
     void setUp() {
         review = new Review();
-        review.setRating(Rating.FOUR);
+        review.setRating(Rating.FOUR_STAR);
         review.setInfo("Great stay with friendly hosts");
     }
 

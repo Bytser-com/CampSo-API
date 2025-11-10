@@ -25,7 +25,7 @@ class ActivityScheduleTest {
         activity.setOwner(owner);
         activity.setLocation(TestDataFactory.createPoint(5.0, 51.0));
         activity.setColorCode("#111111");
-        activity.setTargetAudience(TargetAudience.ADULTS);
+        activity.setTargetAudience(TargetAudience.STUDENTS);
         activity.setTotalSpaces(8);
     }
 

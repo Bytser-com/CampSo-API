@@ -27,7 +27,7 @@ class ActivityTest {
         activity.setColorCode("#FF00FF");
         activity.setInfo("Enjoy a day on the water");
         activity.setHost("River Guides");
-        activity.setTargetAudience(TargetAudience.FAMILY);
+        activity.setTargetAudience(TargetAudience.FAMILIES);
         activity.setTotalSpaces(12);
     }
 
@@ -39,7 +39,7 @@ class ActivityTest {
         facility.setOwner(owner);
         facility.setLocation(location);
         facility.setColorCode("#123456");
-        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SPORTS);
+        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.OTHER);
 
         activity.addFacility(facility);
 
@@ -62,7 +62,7 @@ class ActivityTest {
         facility.setOwner(owner);
         facility.setLocation(location);
         facility.setColorCode("#123456");
-        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SPORTS);
+        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.OTHER);
 
         activity.addFacility(facility);
         activity.removeFacility(facility);
@@ -123,7 +123,7 @@ class ActivityTest {
         assertThat(asString)
                 .contains("Kayaking Adventure")
                 .contains("River Guides")
-                .contains("FAMILY")
+                .contains("FAMILIES")
                 .contains("12");
     }
 

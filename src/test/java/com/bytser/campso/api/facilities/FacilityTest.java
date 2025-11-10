@@ -26,7 +26,7 @@ class FacilityTest {
         facility.setLocation(location);
         facility.setColorCode("#FFD700");
         facility.setInfo("Shared cooking space");
-        facility.setFacilityType(FacilityType.DINING);
+        facility.setFacilityType(FacilityType.ENTRANCE);
     }
 
     @Test
@@ -65,7 +65,7 @@ class FacilityTest {
 
         assertThat(asString)
                 .contains("Community Kitchen")
-                .contains("DINING");
+                .contains("ENTRANCE");
     }
 
     private static class TestFacility extends Facility {

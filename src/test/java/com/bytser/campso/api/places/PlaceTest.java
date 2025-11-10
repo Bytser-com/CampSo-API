@@ -27,7 +27,7 @@ class PlaceTest {
     @DisplayName("addReview links the review to the place bidirectionally")
     void addReviewShouldLinkBothSides() {
         Review review = new Review();
-        review.setRating(Rating.FIVE);
+        review.setRating(Rating.FIVE_STAR);
         review.setOwner(TestDataFactory.createUser("ReviewWriter"));
 
         place.addReview(review);
@@ -48,7 +48,7 @@ class PlaceTest {
     @DisplayName("deleteReview removes the review and clears the place reference")
     void deleteReviewShouldUnlinkBothSides() {
         Review review = new Review();
-        review.setRating(Rating.THREE);
+        review.setRating(Rating.THREE_STAR);
         review.setOwner(TestDataFactory.createUser("ReviewWriter"));
 
         place.addReview(review);

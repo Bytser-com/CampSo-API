@@ -26,7 +26,7 @@ class CampingTest {
         camping.setOwner(owner);
         camping.setLocation(location);
         camping.setColorCode("#00AA00");
-        camping.setTargetAudience(TargetAudience.FAMILY);
+        camping.setTargetAudience(TargetAudience.FAMILIES);
         camping.setTotalSpaces(25);
     }
 
@@ -89,7 +89,7 @@ class CampingTest {
         facility.setOwner(owner);
         facility.setLocation(location);
         facility.setColorCode("#CCCCCC");
-        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SANITATION);
+        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SHOWER);
 
         camping.addFacility(facility);
 
@@ -105,7 +105,7 @@ class CampingTest {
         facility.setOwner(owner);
         facility.setLocation(location);
         facility.setColorCode("#CCCCCC");
-        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SANITATION);
+        facility.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SHOWER);
 
         camping.addFacility(facility);
         camping.removeFacility(facility);
@@ -137,7 +137,7 @@ class CampingTest {
 
         assertThat(asString)
                 .contains("Forest Retreat")
-                .contains("FAMILY")
+                .contains("FAMILIES")
                 .contains("25");
     }
 

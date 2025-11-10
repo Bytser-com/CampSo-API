@@ -29,7 +29,7 @@ class UserTest {
     @DisplayName("addReview links the review to the user")
     void addReviewShouldLinkBothSides() {
         Review review = new Review();
-        review.setRating(Rating.FIVE);
+        review.setRating(Rating.FIVE_STAR);
 
         user.addReview(review);
 
@@ -49,7 +49,7 @@ class UserTest {
     @DisplayName("removeReview removes the review and clears owner")
     void removeReviewShouldUnlinkBothSides() {
         Review review = new Review();
-        review.setRating(Rating.THREE);
+        review.setRating(Rating.THREE_HALF_STAR);
 
         user.addReview(review);
         user.removeReview(review);

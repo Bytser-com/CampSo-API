@@ -33,7 +33,7 @@ class PlanTest {
         camping.setOwner(owner);
         camping.setLocation(TestDataFactory.createPoint(3.0, 45.0));
         camping.setColorCode("#445566");
-        camping.setTargetAudience(com.bytser.campso.api.campings.TargetAudience.ADULTS);
+        camping.setTargetAudience(com.bytser.campso.api.campings.TargetAudience.SENIORS);
         camping.setTotalSpaces(15);
 
         plan.setCamping(camping);
