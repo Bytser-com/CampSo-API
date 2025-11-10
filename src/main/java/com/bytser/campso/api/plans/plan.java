@@ -11,10 +11,10 @@ import jakarta.persistence.*;
 public class Plan {
 
     @Id
-    @Column(nullable = false, updatable = false, unique = true)
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @ManyToOne
+    @ManyToOne(optional=false, fetch = FetchType.LAZY)
     @JoinColumn(name = "camping_id")
     private Camping camping;
 
@@ -36,6 +36,9 @@ public class Plan {
     @Column(nullable = true, unique=false, updatable = true)
     private boolean petsAllowed;
 
+    protected Plan() {
+        // JPA requirement
+    }
 
     // Getters and Setters
     public UUID getId() {
@@ -47,6 +50,9 @@ public class Plan {
 
     public Camping getCamping() {
         return camping;
+    }
+    public void setCamping(Camping camping) {
+        this.camping = camping;
     }
 
     public String getName() {

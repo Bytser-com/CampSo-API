@@ -12,10 +12,10 @@ import com.bytser.campso.api.users.User;
 public class Review {
 
     @Id
-    @Column(nullable = false, updatable = false, unique = true)
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 
@@ -26,9 +26,13 @@ public class Review {
     @Column(columnDefinition = "TEXT", nullable = true, unique=false, updatable = true)
     private String info;
 
-    @ManyToOne
+    @ManyToOne(optional=false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User owner;
+
+    protected Review() {
+        // JPA requirement
+    }
 
     // Getters and Setters
     public UUID getId() {
@@ -61,5 +65,8 @@ public class Review {
 
     public User getOwner() {
         return owner;
+    }
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

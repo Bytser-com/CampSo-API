@@ -21,7 +21,7 @@ public class ActivitySchedule {
     private final UUID id = UUID.randomUUID();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "activity_id", nullable = false)
+    @JoinColumn(name = "activity_id")
     private Activity activity;
 
     // Schedule is valid in [validFrom, validTo]; null = open-ended
@@ -42,10 +42,12 @@ public class ActivitySchedule {
     @ElementCollection
     @CollectionTable(
         name = "activity_schedule_exceptions",
-        joinColumns = @JoinColumn(name = "schedule_id")
+        joinColumns = @JoinColumn(name = "schedule_id"),
+        uniqueConstraints = @UniqueConstraint(columnNames = {"schedule_id", "exception_date"})
     )
-    @Column(name = "exception_date", nullable = true, unique=true, updatable = true)
+    @Column(name = "exception_date", nullable = true)
     private List<LocalDate> exceptions;
+
 
     public ActivitySchedule(Activity activity, LocalDate validFrom, LocalDate validTo, List<TimeSlot> timeSlots) { 
         this.activity = activity; 
@@ -59,12 +61,16 @@ public class ActivitySchedule {
     @PreUpdate
     private void validate() {
         if (activity == null) throw new IllegalStateException("activity is required");
-        if (validFrom == null && validTo != null || validFrom != null && validTo == null) {
-            throw new IllegalArgumentException("validFrom and validTo must be both null or both non-null");
+        if (validFrom != null && validTo != null) {
+            if (validFrom.isAfter(validTo)) {
+                throw new IllegalArgumentException("validFrom after validTo");
+            }
+        } else {
+            if (validFrom == null && validTo != null || validFrom != null && validTo == null) {
+                throw new IllegalArgumentException("validFrom and validTo must be both null or both non-null");
+            }
         }
-        if (validFrom.isAfter(validTo)) {
-            throw new IllegalArgumentException("validFrom after validTo");
-        }
+
         // validate slots: non-empty times and no overlaps
         var sorted = new ArrayList<>(timeSlots);
         sorted.sort((Comparator.comparing(TimeSlot::getStartTime)));

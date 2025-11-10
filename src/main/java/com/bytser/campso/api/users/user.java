@@ -14,11 +14,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.validation.constraints.Email;
 
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @Column(nullable = false, updatable = false, unique = true)
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, unique=true, updatable = true)
     private String userName;
@@ -31,7 +33,7 @@ public class User {
 
     @Column(nullable = false, unique=true, updatable = true)
     @Email
-    private Email email;
+    private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -42,7 +44,7 @@ public class User {
     private UserStatus status = UserStatus.UNVERIFIED;
 
     @Column(nullable = false, updatable = false, unique = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private final LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = true, updatable = true, unique = false)
     private LocalDate dateOfBirth;
@@ -67,6 +69,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Place> places;
+
+    protected User() {
+        // JPA requirement
+    }
 
     // Getters and Setters
     public UUID getId() {
@@ -97,10 +103,10 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
-    public void setEmail(Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

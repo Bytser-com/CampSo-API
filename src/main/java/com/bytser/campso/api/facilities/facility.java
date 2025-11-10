@@ -1,11 +1,5 @@
 package com.bytser.campso.api.facilities;
 
-import java.util.UUID;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import org.locationtech.jts.geom.*;
-
 import com.bytser.campso.api.places.Place;
 
 import jakarta.persistence.*;
@@ -18,11 +12,26 @@ public class Facility extends Place {
     @Column(nullable = false, unique=false, updatable = true)
     private FacilityType facilityType;
 
+    @ManyToOne(optional=false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    private Place place;
+
+    protected Facility() {
+        // Default constructor for JPA
+    }
+
     // Getters and Setters
     public FacilityType getFacilityType() {
         return facilityType;
     }
     public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+    public void setPlace(Place place) {
+        this.place = place;
     }
 }

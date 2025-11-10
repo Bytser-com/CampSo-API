@@ -7,6 +7,8 @@ import com.bytser.campso.api.places.Place;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "activities")
 public class Activity extends Place {
     @Column(nullable = true, unique=false, updatable = true)
     private String host;
@@ -18,10 +20,15 @@ public class Activity extends Place {
     @Column(nullable = false, unique=false, updatable = true)
     private int totalSpaces;
 
-    @ElementCollection
-    @CollectionTable(name = "camping_facilities", joinColumns = @JoinColumn(name = "activity_id"))
-    @Column(name = "facility", nullable = true, unique=false, updatable = true)
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Facility> facilities;
+
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ActivitySchedule> schedules;
+
+    protected Activity() {
+        // Default constructor for JPA
+    }
 
     // Getters and Setters
     public String getHost() {
@@ -53,5 +60,15 @@ public class Activity extends Place {
     }
     public void removeFacility(Facility facility) {
         this.facilities.remove(facility);
+    }
+
+    public List<ActivitySchedule> getSchedules() {
+        return schedules;
+    }
+    public void addSchedule(ActivitySchedule schedule) {
+        this.schedules.add(schedule);
+    }
+    public void removeSchedule(ActivitySchedule schedule) {
+        this.schedules.remove(schedule);
     }
 }

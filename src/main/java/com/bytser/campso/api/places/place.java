@@ -8,7 +8,6 @@ import org.hibernate.type.SqlTypes;
 
 import org.locationtech.jts.geom.*;
 
-import com.bytser.campso.api.facilities.FacilityType;
 import com.bytser.campso.api.reviews.Review;
 import com.bytser.campso.api.users.User;
 
@@ -19,13 +18,13 @@ import jakarta.persistence.*;
 public abstract class Place {
 
     @Id
-    @Column(nullable = false, updatable = false, unique = true)
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, unique=false, updatable = true)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional=false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User owner;
 
@@ -40,10 +39,12 @@ public abstract class Place {
     @Column(columnDefinition = "TEXT", nullable = true, unique=false, updatable = true)
     private String info;
 
-    @ElementCollection
-    @CollectionTable(name = "reviews", joinColumns = @JoinColumn(name = "place_id"))
-    @Column(name = "reviews", nullable = true, unique=false, updatable = true)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+
+    protected Place() {
+        // Default constructor for JPA
+    }
 
     // Getters and Setters
     public UUID getId() {
@@ -74,10 +75,27 @@ public abstract class Place {
         this.name = name;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public String getInfo() {
         return info;
     }
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+    public void deleteReview(Review review) {
+        this.reviews.remove(review);
     }
 }
