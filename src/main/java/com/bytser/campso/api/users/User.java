@@ -75,6 +75,24 @@ public class User {
         // JPA requirement
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + getIdString() +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                ", dateOfBirth=" + dateOfBirth +
+                ", profilePictureUrl='" + profilePictureUrl + '\'' +
+                ", language=" + language +
+                ", countryCode=" + countryCode +
+                '}';
+    }
+
     // Getters and Setters
     public UUID getId() {
         return id;

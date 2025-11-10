@@ -48,6 +48,16 @@ public abstract class Place {
         // Default constructor for JPA
     }
 
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + getIdString() +
+                ", name='" + name + '\'' +
+                ", location=" + location +
+                ", colorCode='" + colorCode + '\'' +
+                '}';
+    }
+
     // Getters and Setters
     public UUID getId() {
         return id;

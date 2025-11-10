@@ -48,6 +48,7 @@ public class ActivitySchedule {
     )
     @Column(name = "exception_date", nullable = true)
     private List<LocalDate> exceptions = new ArrayList<>();
+    
     protected ActivitySchedule() {
         // JPA requirement
     }
@@ -58,6 +59,18 @@ public class ActivitySchedule {
         this.validTo = validTo;
         this.timeSlots = timeSlots != null ? new ArrayList<>(timeSlots) : new ArrayList<>();
         validate();
+    }
+
+    @Override
+    public String toString() {
+        return "ActivitySchedule{" +
+                "id=" + getIdString() +
+                ", activity=" + (activity != null ? activity.getIdString() : "null") +
+                ", validFrom=" + validFrom +
+                ", validTo=" + validTo +
+                ", timeSlots=" + timeSlots +
+                ", exceptions=" + exceptions +
+                '}';
     }
 
     @PrePersist

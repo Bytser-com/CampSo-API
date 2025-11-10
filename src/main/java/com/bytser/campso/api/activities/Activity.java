@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "activities")
 public class Activity extends Place {
+    
     @Column(nullable = true, unique=false, updatable = true)
     private String host;
 
@@ -29,6 +30,17 @@ public class Activity extends Place {
 
     protected Activity() {
         // Default constructor for JPA
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + getIdString() +
+                ", name='" + getName() + '\'' +
+                ", host='" + host + '\'' +
+                ", targetAudience=" + targetAudience +
+                ", totalSpaces=" + totalSpaces +
+                '}';
     }
 
     // Getters and Setters

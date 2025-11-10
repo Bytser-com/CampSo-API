@@ -34,6 +34,15 @@ public class Review {
         // JPA requirement
     }
 
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + getIdString() +
+                ", rating=" + rating +
+                ", info='" + info + '\'' +
+                '}';
+    }
+
     // Getters and Setters
     public UUID getId() {
         return id;

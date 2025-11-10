@@ -40,6 +40,18 @@ public class Plan {
         // JPA requirement
     }
 
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "id=" + getIdString() +
+                ", name='" + name + '\'' +
+                ", pricePerNight=" + pricePerNight +
+                ", maxGuests=" + maxGuests +
+                ", available=" + available +
+                ", petsAllowed=" + petsAllowed +
+                '}';
+    }
+
     // Getters and Setters
     public UUID getId() {
         return id;

@@ -20,6 +20,15 @@ public class Facility extends Place {
         // Default constructor for JPA
     }
 
+    @Override
+    public String toString() {
+        return "Facility{" +
+                "id=" + getIdString() +
+                ", name='" + getName() + '\'' +
+                ", facilityType=" + facilityType +
+                '}';
+    }
+
     // Getters and Setters
     public FacilityType getFacilityType() {
         return facilityType;

@@ -30,6 +30,16 @@ public class Camping extends Place{
         // Default constructor for JPA
     }
 
+    @Override
+    public String toString() {
+        return "Camping{" +
+                "id=" + getIdString() +
+                ", name='" + getName() + '\'' +
+                ", targetAudience=" + targetAudience +
+                ", totalSpaces=" + totalSpaces +
+                '}';
+    }
+
     // Getters and Setters
     public TargetAudience getTargetAudience() {
         return targetAudience;
