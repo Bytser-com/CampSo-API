@@ -42,7 +42,7 @@ public abstract class Place {
     private String info;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    private final List<Review> reviews = new ArrayList<>();
 
     protected Place() {
         // Default constructor for JPA

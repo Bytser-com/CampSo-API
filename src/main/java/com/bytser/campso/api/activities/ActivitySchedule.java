@@ -100,7 +100,7 @@ public class ActivitySchedule {
         return id;
     }
     public String getIdString() {
-        return id.toString();
+        return id != null ? id.toString() : null;
     }
 
     public Activity getActivity() {

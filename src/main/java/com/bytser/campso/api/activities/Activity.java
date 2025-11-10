@@ -22,10 +22,10 @@ public class Activity extends Place {
     private int totalSpaces;
 
     @OneToMany(mappedBy = "hostPlace", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Facility> facilities = new ArrayList<>();
+    private final List<Facility> facilities = new ArrayList<>();
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ActivitySchedule> schedules = new ArrayList<>();
+    private final List<ActivitySchedule> schedules = new ArrayList<>();
 
     protected Activity() {
         // Default constructor for JPA

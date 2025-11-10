@@ -18,13 +18,13 @@ public class Camping extends Place{
     private TargetAudience targetAudience;
 
     @OneToMany(mappedBy="camping", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Plan> campingPlans = new ArrayList<>();
+    private final List<Plan> campingPlans = new ArrayList<>();
 
     @Column(nullable = false, unique=false, updatable = true)
     private int totalSpaces;
 
     @OneToMany(mappedBy="hostPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Facility> facilities = new ArrayList<>();
+    private final List<Facility> facilities = new ArrayList<>();
 
     protected Camping() {
         // Default constructor for JPA

@@ -66,10 +66,10 @@ public class User {
     private String passwordHash;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    private final List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Place> places = new ArrayList<>();
+    private final List<Place> places = new ArrayList<>();
 
     protected User() {
         // JPA requirement
