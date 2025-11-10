@@ -33,7 +33,7 @@ public class Plan {
     @Column(nullable = false, unique=false, updatable = true)
     private boolean available;
 
-    @Column(nullable = true, unique=false, updatable = true)
+    @Column(nullable = false, unique=false, updatable = true)
     private boolean petsAllowed;
 
     protected Plan() {
@@ -45,7 +45,7 @@ public class Plan {
         return id;
     }
     public String getIdString() {
-        return id.toString();
+        return id != null ? id.toString() : null;
     }
 
     public Camping getCamping() {

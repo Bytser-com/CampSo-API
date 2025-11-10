@@ -2,6 +2,7 @@ package com.bytser.campso.api.users;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,11 +65,11 @@ public class User {
     @JsonIgnore
     private String passwordHash;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Place> places;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Place> places = new ArrayList<>();
 
     protected User() {
         // JPA requirement
@@ -79,7 +80,7 @@ public class User {
         return id;
     }
     public String getIdString() {
-        return id.toString();
+        return id != null ? id.toString() : null;
     }
 
     public String getUserName() {
@@ -167,9 +168,17 @@ public class User {
         return reviews;
     }
     public void addReview(Review review) {
+        if (review == null) {
+            return;
+        }
+        review.setOwner(this);
         this.reviews.add(review);
     }
     public void removeReview(Review review) {
+        if (review == null) {
+            return;
+        }
+        review.setOwner(null);
         this.reviews.remove(review);
     }
 
@@ -177,9 +186,17 @@ public class User {
         return places;
     }
     public void addPlace(Place place) {
+        if (place == null) {
+            return;
+        }
+        place.setOwner(this);
         this.places.add(place);
     }
     public void removePlace(Place place) {
+        if (place == null) {
+            return;
+        }
+        place.setOwner(null);
         this.places.remove(place);
     }
 

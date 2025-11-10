@@ -1,5 +1,6 @@
 package com.bytser.campso.api.places;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import com.bytser.campso.api.users.User;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "places")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Place {
 
@@ -40,7 +42,7 @@ public abstract class Place {
     private String info;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
     protected Place() {
         // Default constructor for JPA
@@ -51,7 +53,7 @@ public abstract class Place {
         return id;
     }
     public String getIdString() {
-        return id.toString();
+        return id != null ? id.toString() : null;
     }
 
     public Geometry getLocation() {
@@ -93,9 +95,17 @@ public abstract class Place {
         return reviews;
     }
     public void addReview(Review review) {
+        if (review == null) {
+            return;
+        }
+        review.setPlace(this);
         this.reviews.add(review);
     }
     public void deleteReview(Review review) {
+        if (review == null) {
+            return;
+        }
+        review.setPlace(null);
         this.reviews.remove(review);
     }
 }

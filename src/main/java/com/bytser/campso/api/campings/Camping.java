@@ -6,6 +6,7 @@ import com.bytser.campso.api.facilities.Facility;
 import com.bytser.campso.api.places.Place;
 import com.bytser.campso.api.plans.Plan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,14 +17,14 @@ public class Camping extends Place{
     @Column(nullable = false, unique=false, updatable = true)
     private TargetAudience targetAudience;
 
-    @OneToMany(mappedBy="camping", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Plan> campingPlans;
+    @OneToMany(mappedBy="camping", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Plan> campingPlans = new ArrayList<>();
 
     @Column(nullable = false, unique=false, updatable = true)
     private int totalSpaces;
 
-    @OneToMany(mappedBy="camping", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Facility> facilities;
+    @OneToMany(mappedBy="hostPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Facility> facilities = new ArrayList<>();
 
     protected Camping() {
         // Default constructor for JPA
@@ -41,9 +42,17 @@ public class Camping extends Place{
         return campingPlans;
     }
     public void addPlan(Plan plan) {
+        if (plan == null) {
+            return;
+        }
+        plan.setCamping(this);
         this.campingPlans.add(plan);
     }
     public void removePlan(Plan plan) {
+        if (plan == null) {
+            return;
+        }
+        plan.setCamping(null);
         this.campingPlans.remove(plan);
     }
 
@@ -58,9 +67,17 @@ public class Camping extends Place{
         return facilities;
     }
     public void addFacility(Facility facility) {
+        if (facility == null) {
+            return;
+        }
+        facility.setHostPlace(this);
         this.facilities.add(facility);
     }
     public void removeFacility(Facility facility) {
+        if (facility == null) {
+            return;
+        }
+        facility.setHostPlace(null);
         this.facilities.remove(facility);
     }
 }

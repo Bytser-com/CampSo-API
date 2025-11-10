@@ -13,8 +13,8 @@ public class Facility extends Place {
     private FacilityType facilityType;
 
     @ManyToOne(optional=false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
-    private Place place;
+    @JoinColumn(name = "host_place_id")
+    private Place hostPlace;
 
     protected Facility() {
         // Default constructor for JPA
@@ -28,10 +28,10 @@ public class Facility extends Place {
         this.facilityType = facilityType;
     }
 
-    public Place getPlace() {
-        return place;
+    public Place getHostPlace() {
+        return hostPlace;
     }
-    public void setPlace(Place place) {
-        this.place = place;
+    public void setHostPlace(Place hostPlace) {
+        this.hostPlace = hostPlace;
     }
 }
