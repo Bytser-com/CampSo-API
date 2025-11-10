@@ -4,6 +4,7 @@ import com.bytser.campso.api.activities.Activity;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Geometry;
 
@@ -29,6 +30,7 @@ class FacilityTest {
     }
 
     @Test
+    @DisplayName("setHostPlace assigns an owning place to the facility")
     void setHostPlaceShouldLinkFacilityToPlace() {
         Activity host = new TestActivity();
         host.setName("Cooking Class");
@@ -42,6 +44,7 @@ class FacilityTest {
     }
 
     @Test
+    @DisplayName("setHostPlace with null removes the existing association")
     void setHostPlaceNullShouldUnlink() {
         Activity host = new TestActivity();
         host.setName("Cooking Class");
@@ -56,6 +59,7 @@ class FacilityTest {
     }
 
     @Test
+    @DisplayName("toString includes the facility name and type")
     void toStringShouldContainKeyFields() {
         String asString = facility.toString();
 

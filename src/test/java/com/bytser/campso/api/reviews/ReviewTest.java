@@ -4,6 +4,7 @@ import com.bytser.campso.api.places.Place;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +21,7 @@ class ReviewTest {
     }
 
     @Test
+    @DisplayName("setOwner assigns the review author")
     void setOwnerShouldLinkReviewToUser() {
         User owner = TestDataFactory.createUser("ReviewOwner");
 
@@ -29,6 +31,7 @@ class ReviewTest {
     }
 
     @Test
+    @DisplayName("setOwner with null removes the author reference")
     void setOwnerNullShouldUnlink() {
         User owner = TestDataFactory.createUser("ReviewOwner");
         review.setOwner(owner);
@@ -39,6 +42,7 @@ class ReviewTest {
     }
 
     @Test
+    @DisplayName("setPlace associates the review with a place")
     void setPlaceShouldLinkReviewToPlace() {
         Place place = new TestPlace();
         place.setName("Seaside Camping");
@@ -52,6 +56,7 @@ class ReviewTest {
     }
 
     @Test
+    @DisplayName("setPlace with null removes the place association")
     void setPlaceNullShouldUnlink() {
         Place place = new TestPlace();
         place.setName("Seaside Camping");
@@ -66,6 +71,7 @@ class ReviewTest {
     }
 
     @Test
+    @DisplayName("toString includes rating and review summary")
     void toStringShouldContainKeyFields() {
         String asString = review.toString();
 

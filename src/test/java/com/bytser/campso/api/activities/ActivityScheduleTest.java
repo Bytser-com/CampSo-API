@@ -3,6 +3,7 @@ package com.bytser.campso.api.activities;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("constructor copies slots and validates schedule fields")
     void constructorShouldCopySlotsAndValidate() {
         List<TimeSlot> slots = List.of(new TimeSlot(LocalTime.of(10, 0), LocalTime.of(11, 0)));
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), slots);
@@ -40,6 +42,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("constructor rejects schedules without an activity")
     void constructorShouldRejectNullActivity() {
         List<TimeSlot> slots = List.of(new TimeSlot(LocalTime.of(9, 0), LocalTime.of(10, 0)));
         assertThatThrownBy(() -> new ActivitySchedule(null, LocalDate.now(), LocalDate.now(), slots))
@@ -48,6 +51,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("constructor rejects schedules where validFrom is after validTo")
     void constructorShouldRejectInvalidDateRange() {
         List<TimeSlot> slots = List.of(new TimeSlot(LocalTime.of(9, 0), LocalTime.of(10, 0)));
         assertThatThrownBy(() -> new ActivitySchedule(activity, LocalDate.of(2024, 12, 31), LocalDate.of(2024, 1, 1), slots))
@@ -56,6 +60,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("constructor rejects half open date ranges")
     void constructorShouldRejectHalfOpenRange() {
         List<TimeSlot> slots = List.of(new TimeSlot(LocalTime.of(9, 0), LocalTime.of(10, 0)));
         assertThatThrownBy(() -> new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), null, slots))
@@ -64,6 +69,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("constructor rejects overlapping time slots")
     void constructorShouldRejectOverlappingSlots() {
         List<TimeSlot> slots = List.of(
                 new TimeSlot(LocalTime.of(9, 0), LocalTime.of(10, 0)),
@@ -75,6 +81,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("addTimeSlot appends a new slot with provided start and end times")
     void addTimeSlotShouldAppendSlot() {
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of());
         schedule.addTimeSlot(LocalTime.of(8, 0), LocalTime.of(9, 0));
@@ -85,6 +92,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("addException stores unique exception dates")
     void addExceptionShouldStoreUniqueDates() {
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of());
         LocalDate exceptionDate = LocalDate.of(2024, 5, 1);
@@ -95,6 +103,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("addException ignores null values")
     void addExceptionShouldIgnoreNull() {
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of());
 
@@ -104,6 +113,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("addException rejects duplicate dates")
     void addExceptionShouldRejectDuplicates() {
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of());
         LocalDate exceptionDate = LocalDate.of(2024, 5, 1);
@@ -115,6 +125,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("removeException safely ignores dates that were not stored")
     void removeExceptionShouldBeSafeWhenDateMissing() {
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of());
         schedule.addException(LocalDate.of(2024, 5, 1));
@@ -125,6 +136,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("removeException removes stored exception dates")
     void removeExceptionShouldRemoveExistingDate() {
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of());
         LocalDate exceptionDate = LocalDate.of(2024, 5, 1);
@@ -136,6 +148,7 @@ class ActivityScheduleTest {
     }
 
     @Test
+    @DisplayName("removeTimeSlot removes the provided time slot instance")
     void removeTimeSlotShouldDeleteSlot() {
         TimeSlot slot = new TimeSlot(LocalTime.of(13, 0), LocalTime.of(14, 0));
         ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of(slot));

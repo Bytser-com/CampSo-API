@@ -5,6 +5,7 @@ import com.bytser.campso.api.plans.Plan;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Geometry;
 
@@ -30,6 +31,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("addPlan establishes a bidirectional camping-plan association")
     void addPlanShouldLinkBothSides() {
         Plan plan = new TestPlan();
         plan.setName("Weekend Escape");
@@ -46,6 +48,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("removePlan clears the camping-plan association")
     void removePlanShouldUnlinkBothSides() {
         Plan plan = new TestPlan();
         plan.setName("Weekend Escape");
@@ -63,6 +66,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("addPlan ignores null plans")
     void addPlanShouldIgnoreNull() {
         camping.addPlan(null);
 
@@ -70,6 +74,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("removePlan ignores null inputs")
     void removePlanShouldIgnoreNull() {
         camping.removePlan(null);
 
@@ -77,6 +82,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("addFacility links the facility to the camping bidirectionally")
     void addFacilityShouldLinkBothSides() {
         Facility facility = new TestFacility();
         facility.setName("Shower Block");
@@ -92,6 +98,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("removeFacility severs the bidirectional facility link")
     void removeFacilityShouldUnlinkBothSides() {
         Facility facility = new TestFacility();
         facility.setName("Shower Block");
@@ -108,6 +115,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("addFacility ignores null facilities")
     void addFacilityShouldIgnoreNull() {
         camping.addFacility(null);
 
@@ -115,6 +123,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("removeFacility ignores null inputs")
     void removeFacilityShouldIgnoreNull() {
         camping.removeFacility(null);
 
@@ -122,6 +131,7 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("toString includes name, audience, and capacity details")
     void toStringShouldContainKeyFields() {
         String asString = camping.toString();
 

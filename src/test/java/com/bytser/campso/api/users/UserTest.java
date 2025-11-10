@@ -5,6 +5,7 @@ import com.bytser.campso.api.reviews.Rating;
 import com.bytser.campso.api.reviews.Review;
 import com.bytser.campso.api.support.TestDataFactory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("addReview links the review to the user")
     void addReviewShouldLinkBothSides() {
         Review review = new Review();
         review.setRating(Rating.FIVE);
@@ -36,6 +38,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("addReview ignores null reviews")
     void addReviewShouldIgnoreNull() {
         user.addReview(null);
 
@@ -43,6 +46,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("removeReview removes the review and clears owner")
     void removeReviewShouldUnlinkBothSides() {
         Review review = new Review();
         review.setRating(Rating.THREE);
@@ -55,6 +59,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("removeReview ignores null inputs")
     void removeReviewShouldIgnoreNull() {
         user.removeReview(null);
 
@@ -62,6 +67,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("addPlace links the place to the user")
     void addPlaceShouldLinkBothSides() {
         Place place = new TestPlace();
         place.setName("Lakeside");
@@ -75,6 +81,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("addPlace ignores null places")
     void addPlaceShouldIgnoreNull() {
         user.addPlace(null);
 
@@ -82,6 +89,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("removePlace removes the place and clears owner")
     void removePlaceShouldUnlinkBothSides() {
         Place place = new TestPlace();
         place.setName("Lakeside");
@@ -96,6 +104,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("removePlace ignores null inputs")
     void removePlaceShouldIgnoreNull() {
         user.removePlace(null);
 
@@ -103,6 +112,7 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("toString includes username, role, status, and avatar")
     void toStringShouldContainKeyFields() {
         String asString = user.toString();
 

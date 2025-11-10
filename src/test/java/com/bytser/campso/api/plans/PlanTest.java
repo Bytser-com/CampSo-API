@@ -4,6 +4,7 @@ import com.bytser.campso.api.campings.Camping;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +25,7 @@ class PlanTest {
     }
 
     @Test
+    @DisplayName("setCamping associates the plan with a camping")
     void setCampingShouldLinkPlanToCamping() {
         User owner = TestDataFactory.createUser("PlanOwner");
         Camping camping = new TestCamping();
@@ -40,6 +42,7 @@ class PlanTest {
     }
 
     @Test
+    @DisplayName("toString lists plan configuration fields")
     void toStringShouldContainKeyFields() {
         String asString = plan.toString();
 

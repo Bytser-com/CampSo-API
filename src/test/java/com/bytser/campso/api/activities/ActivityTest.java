@@ -4,6 +4,7 @@ import com.bytser.campso.api.facilities.Facility;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Geometry;
 
@@ -31,6 +32,7 @@ class ActivityTest {
     }
 
     @Test
+    @DisplayName("addFacility links the facility with the activity bidirectionally")
     void addFacilityShouldLinkBothSides() {
         Facility facility = new TestFacility();
         facility.setName("Boat House");
@@ -46,12 +48,14 @@ class ActivityTest {
     }
 
     @Test
+    @DisplayName("addFacility ignores null input")
     void addFacilityShouldIgnoreNull() {
         activity.addFacility(null);
         assertThat(activity.getFacilities()).isEmpty();
     }
 
     @Test
+    @DisplayName("removeFacility clears the association on both sides")
     void removeFacilityShouldUnlinkBothSides() {
         Facility facility = new TestFacility();
         facility.setName("Boat House");
@@ -68,12 +72,14 @@ class ActivityTest {
     }
 
     @Test
+    @DisplayName("removeFacility ignores null input")
     void removeFacilityShouldIgnoreNull() {
         activity.removeFacility(null);
         assertThat(activity.getFacilities()).isEmpty();
     }
 
     @Test
+    @DisplayName("addSchedule links the schedule and activity bidirectionally")
     void addScheduleShouldLinkBothSides() {
         ActivitySchedule schedule = new ActivitySchedule();
 
@@ -84,12 +90,14 @@ class ActivityTest {
     }
 
     @Test
+    @DisplayName("addSchedule ignores null input")
     void addScheduleShouldIgnoreNull() {
         activity.addSchedule(null);
         assertThat(activity.getSchedules()).isEmpty();
     }
 
     @Test
+    @DisplayName("removeSchedule removes both sides of the association")
     void removeScheduleShouldUnlinkBothSides() {
         ActivitySchedule schedule = new ActivitySchedule();
         activity.addSchedule(schedule);
@@ -101,12 +109,14 @@ class ActivityTest {
     }
 
     @Test
+    @DisplayName("removeSchedule ignores null input")
     void removeScheduleShouldIgnoreNull() {
         activity.removeSchedule(null);
         assertThat(activity.getSchedules()).isEmpty();
     }
 
     @Test
+    @DisplayName("toString includes name, host, target audience, and capacity")
     void toStringShouldContainKeyFields() {
         String asString = activity.toString();
 
