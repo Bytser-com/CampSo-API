@@ -29,7 +29,7 @@ class UserTest {
     @Test
     @DisplayName("addReview links the review to the user")
     void addReviewShouldLinkBothSides() {
-        Review review = new Review();
+        Review review = new TestReview();
         review.setRating(Rating.FIVE_STAR);
 
         user.addReview(review);
@@ -49,7 +49,7 @@ class UserTest {
     @Test
     @DisplayName("removeReview removes the review and clears owner")
     void removeReviewShouldUnlinkBothSides() {
-        Review review = new Review();
+        Review review = new TestReview();
         review.setRating(Rating.THREE_HALF_STAR);
 
         user.addReview(review);
@@ -70,11 +70,11 @@ class UserTest {
     @Test
     @DisplayName("removeReview ignores reviews that were never linked")
     void removeReviewShouldIgnoreMissingReview() {
-        Review linked = new Review();
+        Review linked = new TestReview();
         linked.setRating(Rating.FOUR_STAR);
         user.addReview(linked);
 
-        Review stranger = new Review();
+        Review stranger = new TestReview();
         stranger.setRating(Rating.ONE_STAR);
 
         user.removeReview(stranger);
@@ -163,5 +163,8 @@ class UserTest {
     }
 
     private static class TestPlace extends Place {
+    }
+
+    private static class TestReview extends Review {
     }
 }

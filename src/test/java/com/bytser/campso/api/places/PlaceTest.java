@@ -27,7 +27,7 @@ class PlaceTest {
     @Test
     @DisplayName("addReview links the review to the place bidirectionally")
     void addReviewShouldLinkBothSides() {
-        Review review = new Review();
+        Review review = new TestReview();
         review.setRating(Rating.FIVE_STAR);
         review.setOwner(TestDataFactory.createUser("ReviewWriter"));
 
@@ -48,7 +48,7 @@ class PlaceTest {
     @Test
     @DisplayName("deleteReview removes the review and clears the place reference")
     void deleteReviewShouldUnlinkBothSides() {
-        Review review = new Review();
+        Review review = new TestReview();
         review.setRating(Rating.THREE_STAR);
         review.setOwner(TestDataFactory.createUser("ReviewWriter"));
 
@@ -70,12 +70,12 @@ class PlaceTest {
     @Test
     @DisplayName("deleteReview ignores reviews that were never attached")
     void deleteReviewShouldIgnoreMissingReview() {
-        Review review = new Review();
+        Review review = new TestReview();
         review.setRating(Rating.FIVE_STAR);
         review.setOwner(TestDataFactory.createUser("ReviewWriter"));
         place.addReview(review);
 
-        Review stranger = new Review();
+        Review stranger = new TestReview();
         stranger.setRating(Rating.ONE_STAR);
         stranger.setOwner(TestDataFactory.createUser("OtherWriter"));
 
@@ -97,5 +97,8 @@ class PlaceTest {
     }
 
     private static class TestPlace extends Place {
+    }
+
+    private static class TestReview extends Review {
     }
 }
