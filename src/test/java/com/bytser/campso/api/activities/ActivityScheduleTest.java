@@ -18,6 +18,7 @@ class ActivityScheduleTest {
     private Activity activity;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         User owner = TestDataFactory.createUser("ScheduleOwner");
         activity = new TestActivity();
