@@ -14,6 +14,7 @@ class PlaceTest {
     private Place place;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         place = new TestPlace();
         place.setName("Hidden Valley");

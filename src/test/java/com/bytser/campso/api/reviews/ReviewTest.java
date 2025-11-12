@@ -14,6 +14,7 @@ class ReviewTest {
     private Review review;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         review = new Review();
         review.setRating(Rating.FOUR_STAR);

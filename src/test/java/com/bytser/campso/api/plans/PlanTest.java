@@ -14,6 +14,7 @@ class PlanTest {
     private Plan plan;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         plan = new TestPlan();
         plan.setName("Family Package");

@@ -17,6 +17,7 @@ class ActivityTest {
     private Geometry location;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         owner = TestDataFactory.createUser("ActivityOwner");
         location = TestDataFactory.createPoint(4.0, 52.0);

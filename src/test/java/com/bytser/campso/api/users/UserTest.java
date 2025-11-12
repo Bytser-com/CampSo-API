@@ -17,6 +17,7 @@ class UserTest {
     private User user;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         user = TestDataFactory.createUser("Main");
         user.setDateOfBirth(LocalDate.of(1990, 1, 1));
