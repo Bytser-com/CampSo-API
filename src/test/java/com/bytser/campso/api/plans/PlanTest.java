@@ -43,6 +43,24 @@ class PlanTest {
     }
 
     @Test
+    @DisplayName("setCamping allows detaching the plan from a camping")
+    void setCampingShouldAllowDetaching() {
+        User owner = TestDataFactory.createUser("PlanOwner");
+        Camping camping = new TestCamping();
+        camping.setName("Mountain Base");
+        camping.setOwner(owner);
+        camping.setLocation(TestDataFactory.createPoint(3.0, 45.0));
+        camping.setColorCode("#445566");
+        camping.setTargetAudience(com.bytser.campso.api.campings.TargetAudience.SENIORS);
+        camping.setTotalSpaces(15);
+        plan.setCamping(camping);
+
+        plan.setCamping(null);
+
+        assertThat(plan.getCamping()).isNull();
+    }
+
+    @Test
     @DisplayName("toString lists plan configuration fields")
     void toStringShouldContainKeyFields() {
         String asString = plan.toString();

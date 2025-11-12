@@ -83,6 +83,33 @@ class CampingTest {
     }
 
     @Test
+    @DisplayName("removePlan ignores plans that were never linked")
+    void removePlanShouldIgnoreMissingPlan() {
+        Plan linked = new TestPlan();
+        linked.setName("Weekend Escape");
+        linked.setDescription("Two nights");
+        linked.setPricePerNight(89.99);
+        linked.setMaxGuests(4);
+        linked.setAvailable(true);
+        linked.setPetsAllowed(false);
+        camping.addPlan(linked);
+
+        Plan stranger = new TestPlan();
+        stranger.setName("Weekday Escape");
+        stranger.setDescription("Weekday stay");
+        stranger.setPricePerNight(79.99);
+        stranger.setMaxGuests(2);
+        stranger.setAvailable(true);
+        stranger.setPetsAllowed(true);
+
+        camping.removePlan(stranger);
+
+        assertThat(camping.getPlans()).containsExactly(linked);
+        assertThat(linked.getCamping()).isEqualTo(camping);
+        assertThat(stranger.getCamping()).isNull();
+    }
+
+    @Test
     @DisplayName("addFacility links the facility to the camping bidirectionally")
     void addFacilityShouldLinkBothSides() {
         Facility facility = new TestFacility();
@@ -129,6 +156,31 @@ class CampingTest {
         camping.removeFacility(null);
 
         assertThat(camping.getFacilities()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("removeFacility ignores facilities that were never linked")
+    void removeFacilityShouldIgnoreMissingFacility() {
+        Facility linked = new TestFacility();
+        linked.setName("Shower Block");
+        linked.setOwner(owner);
+        linked.setLocation(location);
+        linked.setColorCode("#CCCCCC");
+        linked.setFacilityType(com.bytser.campso.api.facilities.FacilityType.SHOWER);
+        camping.addFacility(linked);
+
+        Facility stranger = new TestFacility();
+        stranger.setName("Reception");
+        stranger.setOwner(owner);
+        stranger.setLocation(location);
+        stranger.setColorCode("#000000");
+        stranger.setFacilityType(com.bytser.campso.api.facilities.FacilityType.RECEPTION);
+
+        camping.removeFacility(stranger);
+
+        assertThat(camping.getFacilities()).containsExactly(linked);
+        assertThat(linked.getHostPlace()).isEqualTo(camping);
+        assertThat(stranger.getHostPlace()).isNull();
     }
 
     @Test

@@ -18,6 +18,7 @@ class ActivityScheduleTest {
     private Activity activity;
 
     @BeforeEach
+    @SuppressWarnings("unused") // compiler gives warning that function is never used, but function is used by Spring Boot annotations (@BeforeEach)
     void setUp() {
         User owner = TestDataFactory.createUser("ScheduleOwner");
         activity = new TestActivity();
@@ -66,6 +67,14 @@ class ActivityScheduleTest {
         assertThatThrownBy(() -> new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), null, slots))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("must both be null or both non-null");
+    }
+
+    @Test
+    @DisplayName("constructor rejects null time slot collections")
+    void constructorShouldRejectNullTimeSlotsCollection() {
+        assertThatThrownBy(() -> new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), null))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("timeSlots cannot be null");
     }
 
     @Test
@@ -156,6 +165,33 @@ class ActivityScheduleTest {
         schedule.removeTimeSlot(schedule.getTimeSlots().get(0));
 
         assertThat(schedule.getTimeSlots()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("removeTimeSlot ignores slots that are not present")
+    void removeTimeSlotShouldIgnoreMissingSlot() {
+        TimeSlot slot = new TimeSlot(LocalTime.of(13, 0), LocalTime.of(14, 0));
+        ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of(slot));
+
+        schedule.removeTimeSlot(new TimeSlot(LocalTime.of(15, 0), LocalTime.of(16, 0)));
+
+        assertThat(schedule.getTimeSlots()).containsExactly(slot);
+    }
+
+    @Test
+    @DisplayName("toString exposes activity id and timing boundaries")
+    void toStringShouldExposeActivityAndRange() {
+        TimeSlot slot = new TimeSlot(LocalTime.of(8, 0), LocalTime.of(9, 0));
+        ActivitySchedule schedule = new ActivitySchedule(activity, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), List.of(slot));
+        schedule.addException(LocalDate.of(2024, 6, 1));
+
+        String asString = schedule.toString();
+
+        assertThat(asString)
+                .contains("validFrom=2024-01-01")
+                .contains("validTo=2024-12-31")
+                .contains("timeSlots")
+                .contains("exceptions");
     }
 
     private static class TestActivity extends Activity {

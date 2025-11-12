@@ -81,6 +81,14 @@ class ReviewTest {
                 .contains("Great stay");
     }
 
+    @Test
+    @DisplayName("setRating updates the stored rating value")
+    void setRatingShouldUpdateValue() {
+        review.setRating(Rating.ONE_STAR);
+
+        assertThat(review.getRating()).isEqualTo(Rating.ONE_STAR);
+    }
+
     private static class TestPlace extends Place {
     }
 }

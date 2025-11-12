@@ -68,6 +68,25 @@ class PlaceTest {
     }
 
     @Test
+    @DisplayName("deleteReview ignores reviews that were never attached")
+    void deleteReviewShouldIgnoreMissingReview() {
+        Review review = new Review();
+        review.setRating(Rating.FIVE_STAR);
+        review.setOwner(TestDataFactory.createUser("ReviewWriter"));
+        place.addReview(review);
+
+        Review stranger = new Review();
+        stranger.setRating(Rating.ONE_STAR);
+        stranger.setOwner(TestDataFactory.createUser("OtherWriter"));
+
+        place.deleteReview(stranger);
+
+        assertThat(place.getReviews()).containsExactly(review);
+        assertThat(review.getPlace()).isEqualTo(place);
+        assertThat(stranger.getPlace()).isNull();
+    }
+
+    @Test
     @DisplayName("toString includes the place name and color code")
     void toStringShouldContainKeyFields() {
         String asString = place.toString();

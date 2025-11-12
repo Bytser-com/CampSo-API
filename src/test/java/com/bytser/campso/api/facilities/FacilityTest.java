@@ -60,6 +60,35 @@ class FacilityTest {
     }
 
     @Test
+    @DisplayName("setHostPlace replaces an existing host association")
+    void setHostPlaceShouldReplaceExistingHost() {
+        Activity firstHost = new TestActivity();
+        firstHost.setName("Cooking Class");
+        firstHost.setOwner(owner);
+        firstHost.setLocation(location);
+        firstHost.setColorCode("#990000");
+
+        Activity newHost = new TestActivity();
+        newHost.setName("Baking Workshop");
+        newHost.setOwner(owner);
+        newHost.setLocation(location);
+        newHost.setColorCode("#550000");
+
+        facility.setHostPlace(firstHost);
+        facility.setHostPlace(newHost);
+
+        assertThat(facility.getHostPlace()).isEqualTo(newHost);
+    }
+
+    @Test
+    @DisplayName("setFacilityType updates the stored type")
+    void setFacilityTypeShouldUpdateValue() {
+        facility.setFacilityType(FacilityType.PARKING);
+
+        assertThat(facility.getFacilityType()).isEqualTo(FacilityType.PARKING);
+    }
+
+    @Test
     @DisplayName("toString includes the facility name and type")
     void toStringShouldContainKeyFields() {
         String asString = facility.toString();

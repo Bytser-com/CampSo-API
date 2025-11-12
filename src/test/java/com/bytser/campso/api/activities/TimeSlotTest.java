@@ -33,4 +33,13 @@ class TimeSlotTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("end <= start");
     }
+
+    @Test
+    @DisplayName("constructor rejects null start or end times")
+    void constructorShouldRejectNullTimes() {
+        assertThatThrownBy(() -> new TimeSlot(null, LocalTime.NOON))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new TimeSlot(LocalTime.NOON, null))
+                .isInstanceOf(NullPointerException.class);
+    }
 }

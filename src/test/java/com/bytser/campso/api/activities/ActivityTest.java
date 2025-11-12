@@ -80,6 +80,31 @@ class ActivityTest {
     }
 
     @Test
+    @DisplayName("removeFacility ignores facilities that were never associated")
+    void removeFacilityShouldIgnoreMissingFacility() {
+        Facility linked = new TestFacility();
+        linked.setName("Boat House");
+        linked.setOwner(owner);
+        linked.setLocation(location);
+        linked.setColorCode("#123456");
+        linked.setFacilityType(com.bytser.campso.api.facilities.FacilityType.OTHER);
+        activity.addFacility(linked);
+
+        Facility stranger = new TestFacility();
+        stranger.setName("Storage Shed");
+        stranger.setOwner(owner);
+        stranger.setLocation(location);
+        stranger.setColorCode("#654321");
+        stranger.setFacilityType(com.bytser.campso.api.facilities.FacilityType.STORE);
+
+        activity.removeFacility(stranger);
+
+        assertThat(activity.getFacilities()).containsExactly(linked);
+        assertThat(linked.getHostPlace()).isEqualTo(activity);
+        assertThat(stranger.getHostPlace()).isNull();
+    }
+
+    @Test
     @DisplayName("addSchedule links the schedule and activity bidirectionally")
     void addScheduleShouldLinkBothSides() {
         ActivitySchedule schedule = new ActivitySchedule();
@@ -114,6 +139,20 @@ class ActivityTest {
     void removeScheduleShouldIgnoreNull() {
         activity.removeSchedule(null);
         assertThat(activity.getSchedules()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("removeSchedule ignores schedules that were never linked")
+    void removeScheduleShouldIgnoreMissingSchedule() {
+        ActivitySchedule kept = new ActivitySchedule();
+        activity.addSchedule(kept);
+
+        ActivitySchedule stranger = new ActivitySchedule();
+        activity.removeSchedule(stranger);
+
+        assertThat(activity.getSchedules()).containsExactly(kept);
+        assertThat(kept.getActivity()).isEqualTo(activity);
+        assertThat(stranger.getActivity()).isNull();
     }
 
     @Test

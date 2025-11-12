@@ -68,6 +68,23 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("removeReview ignores reviews that were never linked")
+    void removeReviewShouldIgnoreMissingReview() {
+        Review linked = new Review();
+        linked.setRating(Rating.FOUR_STAR);
+        user.addReview(linked);
+
+        Review stranger = new Review();
+        stranger.setRating(Rating.ONE_STAR);
+
+        user.removeReview(stranger);
+
+        assertThat(user.getReviews()).containsExactly(linked);
+        assertThat(linked.getOwner()).isEqualTo(user);
+        assertThat(stranger.getOwner()).isNull();
+    }
+
+    @Test
     @DisplayName("addPlace links the place to the user")
     void addPlaceShouldLinkBothSides() {
         Place place = new TestPlace();
@@ -110,6 +127,27 @@ class UserTest {
         user.removePlace(null);
 
         assertThat(user.getPlaces()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("removePlace ignores places that were never linked")
+    void removePlaceShouldIgnoreMissingPlace() {
+        Place linked = new TestPlace();
+        linked.setName("Lakeside");
+        linked.setLocation(TestDataFactory.createPoint(2.0, 46.0));
+        linked.setColorCode("#123123");
+        user.addPlace(linked);
+
+        Place stranger = new TestPlace();
+        stranger.setName("Hilltop");
+        stranger.setLocation(TestDataFactory.createPoint(3.0, 47.0));
+        stranger.setColorCode("#321321");
+
+        user.removePlace(stranger);
+
+        assertThat(user.getPlaces()).containsExactly(linked);
+        assertThat(linked.getOwner()).isEqualTo(user);
+        assertThat(stranger.getOwner()).isNull();
     }
 
     @Test
