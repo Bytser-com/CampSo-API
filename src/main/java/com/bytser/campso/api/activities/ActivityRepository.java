@@ -1,5 +1,14 @@
 package com.bytser.campso.api.activities;
 
-public class ActivityRepository {
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ActivityRepository extends JpaRepository<Activity, UUID> {
+
+    Optional<Activity> findByName(String name);
+
+    List<Activity> findByOwnerId(UUID ownerId);
 }
