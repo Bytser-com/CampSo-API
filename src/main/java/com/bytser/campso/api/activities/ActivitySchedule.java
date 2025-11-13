@@ -54,10 +54,13 @@ public class ActivitySchedule {
     }
 
     public ActivitySchedule(Activity activity, LocalDate validFrom, LocalDate validTo, List<TimeSlot> timeSlots) {
+        if (timeSlots == null) {
+            throw new IllegalStateException("timeSlots cannot be null");
+        }
         this.activity = activity;
         this.validFrom = validFrom;
         this.validTo = validTo;
-        this.timeSlots = timeSlots != null ? new ArrayList<>(timeSlots) : new ArrayList<>();
+        this.timeSlots = new ArrayList<>(timeSlots);
         validate();
     }
 
