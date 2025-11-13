@@ -9,5 +9,6 @@ public interface FacilityRepository extends JpaRepository<Facility, UUID> {
 
     List<Facility> findByHostPlaceId(UUID hostPlaceId);
 
-    List<Facility> findByFacilityType(FacilityType facilityType);
+    List<Facility> findByHostPlaceIdAndFacilityType(UUID hostPlaceId, FacilityType facilityType);
+
 }
