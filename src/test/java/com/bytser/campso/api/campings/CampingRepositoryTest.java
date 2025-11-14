@@ -2,7 +2,6 @@ package com.bytser.campso.api.campings;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.bytser.campso.api.campings.TargetAudience;
 import com.bytser.campso.api.support.TestDataFactory;
 import com.bytser.campso.api.users.User;
 import java.util.List;
