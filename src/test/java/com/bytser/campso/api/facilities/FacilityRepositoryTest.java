@@ -78,7 +78,7 @@ class FacilityRepositoryTest {
     }
 
     private Camping persistCamping(User owner, String name, double longitude) {
-        Camping camping = new Camping();
+        Camping camping = TestDataFactory.newCamping();
         camping.setName(name);
         camping.setOwner(owner);
         camping.setColorCode("#abcdef");
@@ -90,7 +90,7 @@ class FacilityRepositoryTest {
     }
 
     private Facility persistFacility(User owner, Camping host, String name, FacilityType type, double longitude) {
-        Facility facility = new Facility();
+        Facility facility = TestDataFactory.newFacility();
         facility.setName(name);
         facility.setOwner(owner);
         facility.setColorCode("#445566");

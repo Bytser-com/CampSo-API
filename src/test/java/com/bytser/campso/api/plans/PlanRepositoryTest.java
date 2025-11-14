@@ -80,7 +80,7 @@ class PlanRepositoryTest {
     }
 
     private Camping persistCamping(User owner, String name, double longitude) {
-        Camping camping = new Camping();
+        Camping camping = TestDataFactory.newCamping();
         camping.setName(name);
         camping.setOwner(owner);
         camping.setColorCode("#d4d4d4");
@@ -92,7 +92,7 @@ class PlanRepositoryTest {
     }
 
     private Plan persistPlan(Camping camping, String name, double price) {
-        Plan plan = new Plan();
+        Plan plan = TestDataFactory.newPlan();
         plan.setCamping(camping);
         plan.setName(name);
         plan.setDescription(name + " plan");

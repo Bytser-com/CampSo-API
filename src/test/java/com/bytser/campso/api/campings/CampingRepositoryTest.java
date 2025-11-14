@@ -73,7 +73,7 @@ class CampingRepositoryTest {
     }
 
     private Camping persistCamping(User owner, String name, double longitude) {
-        Camping camping = new Camping();
+        Camping camping = TestDataFactory.newCamping();
         camping.setName(name);
         camping.setOwner(owner);
         camping.setColorCode("#abcdef");

@@ -1,5 +1,10 @@
 package com.bytser.campso.api.support;
 
+import com.bytser.campso.api.activities.Activity;
+import com.bytser.campso.api.campings.Camping;
+import com.bytser.campso.api.facilities.Facility;
+import com.bytser.campso.api.plans.Plan;
+import com.bytser.campso.api.reviews.Review;
 import com.bytser.campso.api.users.CountryCode;
 import com.bytser.campso.api.users.Language;
 import com.bytser.campso.api.users.User;
@@ -31,7 +36,47 @@ public final class TestDataFactory {
         return user;
     }
 
+    public static Activity newActivity() {
+        return new TestActivity();
+    }
+
+    public static Camping newCamping() {
+        return new TestCamping();
+    }
+
+    public static Facility newFacility() {
+        return new TestFacility();
+    }
+
+    public static Plan newPlan() {
+        return new TestPlan();
+    }
+
+    public static Review newReview() {
+        return new TestReview();
+    }
+
     private static class TestUser extends User {
         // Uses the protected no-arg constructor from User
+    }
+
+    private static class TestActivity extends Activity {
+        // Exposes the protected no-arg constructor for tests
+    }
+
+    private static class TestCamping extends Camping {
+        // Exposes the protected no-arg constructor for tests
+    }
+
+    private static class TestFacility extends Facility {
+        // Exposes the protected no-arg constructor for tests
+    }
+
+    private static class TestPlan extends Plan {
+        // Exposes the protected no-arg constructor for tests
+    }
+
+    private static class TestReview extends Review {
+        // Exposes the protected no-arg constructor for tests
     }
 }

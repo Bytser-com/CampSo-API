@@ -61,7 +61,7 @@ class PlaceRepositoryTest {
     }
 
     private Activity persistActivity(User owner, String name, double longitude) {
-        Activity activity = new Activity();
+        Activity activity = TestDataFactory.newActivity();
         activity.setName(name);
         activity.setOwner(owner);
         activity.setColorCode("#123456");
@@ -74,7 +74,7 @@ class PlaceRepositoryTest {
     }
 
     private Camping persistCamping(User owner, String name, double longitude) {
-        Camping camping = new Camping();
+        Camping camping = TestDataFactory.newCamping();
         camping.setName(name);
         camping.setOwner(owner);
         camping.setColorCode("#654321");

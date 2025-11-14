@@ -82,7 +82,7 @@ class ReviewRepositoryTest {
     }
 
     private Camping persistCamping(User owner, String name, double longitude) {
-        Camping camping = new Camping();
+        Camping camping = TestDataFactory.newCamping();
         camping.setName(name);
         camping.setOwner(owner);
         camping.setColorCode("#778899");
@@ -94,7 +94,7 @@ class ReviewRepositoryTest {
     }
 
     private Review persistReview(User owner, Camping camping, Rating rating, String info) {
-        Review review = new Review();
+        Review review = TestDataFactory.newReview();
         review.setOwner(owner);
         review.setPlace(camping);
         review.setRating(rating);

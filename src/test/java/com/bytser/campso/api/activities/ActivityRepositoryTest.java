@@ -91,7 +91,7 @@ class ActivityRepositoryTest {
     }
 
     private Activity persistActivity(User owner, String name, double longitude, String host) {
-        Activity activity = new Activity();
+        Activity activity = TestDataFactory.newActivity();
         activity.setName(name);
         activity.setOwner(owner);
         activity.setColorCode("#112233");
