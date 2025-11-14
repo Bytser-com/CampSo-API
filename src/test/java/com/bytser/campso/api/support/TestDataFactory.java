@@ -8,6 +8,8 @@ import com.bytser.campso.api.reviews.Review;
 import com.bytser.campso.api.users.CountryCode;
 import com.bytser.campso.api.users.Language;
 import com.bytser.campso.api.users.User;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -25,7 +27,7 @@ public final class TestDataFactory {
     }
 
     public static User createUser(String identifier) {
-        TestUser user = new TestUser();
+        User user = instantiate(User.class);
         user.setUserName("user" + identifier);
         user.setFirstName("First" + identifier);
         user.setLastName("Last" + identifier);
@@ -37,46 +39,33 @@ public final class TestDataFactory {
     }
 
     public static Activity newActivity() {
-        return new TestActivity();
+        return instantiate(Activity.class);
     }
 
     public static Camping newCamping() {
-        return new TestCamping();
+        return instantiate(Camping.class);
     }
 
     public static Facility newFacility() {
-        return new TestFacility();
+        return instantiate(Facility.class);
     }
 
     public static Plan newPlan() {
-        return new TestPlan();
+        return instantiate(Plan.class);
     }
 
     public static Review newReview() {
-        return new TestReview();
+        return instantiate(Review.class);
     }
 
-    private static class TestUser extends User {
-        // Uses the protected no-arg constructor from User
-    }
-
-    private static class TestActivity extends Activity {
-        // Exposes the protected no-arg constructor for tests
-    }
-
-    private static class TestCamping extends Camping {
-        // Exposes the protected no-arg constructor for tests
-    }
-
-    private static class TestFacility extends Facility {
-        // Exposes the protected no-arg constructor for tests
-    }
-
-    private static class TestPlan extends Plan {
-        // Exposes the protected no-arg constructor for tests
-    }
-
-    private static class TestReview extends Review {
-        // Exposes the protected no-arg constructor for tests
+    private static <T> T instantiate(Class<T> type) {
+        try {
+            Constructor<T> constructor = type.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance();
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+                | InvocationTargetException exception) {
+            throw new IllegalStateException("Failed to instantiate " + type.getName(), exception);
+        }
     }
 }
